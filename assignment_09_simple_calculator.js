@@ -73,5 +73,111 @@
 // =============================================================================
 // YOUR CODE BELOW — remove the // symbols from the scaffold and fill it in
 // =============================================================================
+const readlineSync = require('readline-sync');
+
+// Arithmetic operation functions
+function add(a, b) {
+    return a + b;
+}
+
+function subtract(a, b) {
+    return a - b;
+}
+
+function multiply(a, b) {
+    return a * b;
+}
+
+function divide(a, b) {
+    return a / b;
+}
+
+function modulus(a, b) {
+    return a % b;
+}
+
+function exponentiate(a, b) {
+    return a ** b;
+}
+
+function displayMenu() {
+    console.log('\n==============================');
+    console.log('       SIMPLE CALCULATOR');
+    console.log('==============================');
+    console.log('1. Addition');
+    console.log('2. Subtraction');
+    console.log('3. Multiplication');
+    console.log('4. Division');
+    console.log('5. Modulus');
+    console.log('6. Exponentiation');
+    console.log('7. Quit');
+}
+
+function main() {
+    let running = true;
+
+    while (running) {
+        displayMenu();
+        const choice = readlineSync.questionInt('Select an operation (1-7): ');
+
+        if (choice === 7) {
+            console.log('Goodbye!');
+            running = false;
+            break;
+        }
+
+        if (choice < 1 || choice > 7) {
+            console.log('Error: Invalid choice. Please select an operation from 1 to 7.');
+            continue;
+        }
+
+        const num1 = readlineSync.questionFloat('Enter first number: ');
+        const num2 = readlineSync.questionFloat('Enter second number: ');
+
+        let result;
+        let symbol;
+
+        switch (choice) {
+            case 1:
+                result = add(num1, num2);
+                symbol = '+';
+                break;
+            case 2:
+                result = subtract(num1, num2);
+                symbol = '-';
+                break;
+            case 3:
+                result = multiply(num1, num2);
+                symbol = '*';
+                break;
+            case 4:
+                if (num2 === 0) {
+                    console.log('Error: Cannot divide by zero.');
+                    continue;
+                }
+                result = divide(num1, num2);
+                symbol = '/';
+                break;
+            case 5:
+                if (num2 === 0) {
+                    console.log('Error: Cannot divide by zero.');
+                    continue;
+                }
+                result = modulus(num1, num2);
+                symbol = '%';
+                break;
+            case 6:
+                result = exponentiate(num1, num2);
+                symbol = '**';
+                break;
+        }
+
+        // Format output: display integer if whole number, otherwise round to 2 decimal places
+        const formattedResult = Number.isInteger(result) ? result : parseFloat(result.toFixed(2));
+        console.log(`Result: ${num1} ${symbol} ${num2} = ${formattedResult}`);
+    }
+}
+
+main();
 
 
